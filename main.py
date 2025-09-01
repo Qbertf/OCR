@@ -157,20 +157,21 @@ def main():
             print("Error: --word and --id are required when using --takephoto")
             sys.exit(1)
         
-        print(f"Processing word: {args.word}")
-        print(f"Output ID: {args.id}")
-        print(f"Font size: {args.fontsize}")
-        print(f"Font URL: {args.fonturl}")
-        print(f"Output path: {args.outpath}")
+        #print(f"Processing word: {args.word}")
+        #print(f"Output ID: {args.id}")
+        #print(f"Font size: {args.fontsize}")
+        #print(f"Font URL: {args.fonturl}")
+        #print(f"Output path: {args.outpath}")
         
         result_path = op.takephoto(args.word, args.id, args.fontsize, args.fonturl)
         
-        if result_path:
-            print(f"Success! Image saved to: {result_path}")
-        else:
-            print("Failed to create image")
+        #if result_path:
+            #print(f"Success! Image saved to: {result_path}")
+        #else:
+            #print("Failed to create image")
     else:
         print("No operation specified. Use --takephoto to process a word.")
 
 if __name__ == "__main__":
+
     main()
