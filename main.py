@@ -57,19 +57,26 @@ class Operation:
     def crop(self, image):
         image = np.asarray(image)[:, :, 0]
         tps = np.where(image <= 30)
+    
+        # اگر چیزی پیدا نشد → همون تصویر خام رو برگردون یا None بده
+        if tps[0].size == 0 or tps[1].size == 0:
+            # انتخاب: یا برگردون کل تصویر، یا None
+            return Image.fromarray(image)  
+    
         min_x = np.min(tps[0]) - self.padcrop
         max_x = np.max(tps[0]) + self.padcrop
         min_y = np.min(tps[1]) - self.padcrop
         max_y = np.max(tps[1]) + self.padcrop
-        
+    
         # Ensure indices are within bounds
         min_x = max(0, min_x)
         min_y = max(0, min_y)
         max_x = min(image.shape[0], max_x)
         max_y = min(image.shape[1], max_y)
-        
+    
         image_crop = Image.fromarray(image[min_x:max_x, min_y:max_y])
         return image_crop
+
 
     def takephoto(self, word, id, fontsize, fonturl):
         html_content = self.html_template.format(
@@ -175,3 +182,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
