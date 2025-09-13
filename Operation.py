@@ -91,12 +91,18 @@ class Operation:
                 UniqueWords.update({wordsdict[key]:outpath})
                 id+=1;
         
-    def runphoto(self,file_unqwords,fontsize,fonturl='fonts/arabic_font/122-H_Esfahan.TTF'):
+    def runphoto(self,file_unqwords,fontsize,fonturl='fonts/arabic_font/122-H_Esfahan.TTF',start=1,finish=10):
         with open(file_unqwords,'rb') as f:
             words_unq = pickle.load(f)
          
-        for key in tqdm(words_unq.keys()):
+        allkey = list(words_unq.keys())[1:]
+
+        px=0;
+        for key in tqdm(allkey[start:finish]):
+
             outpath = self.takephoto(words_unq[key],key,fontsize,fonturl)
+            px+=1;
 
             #break
             #UniqueWords.update({wordsdict[key]:outpath})
+
