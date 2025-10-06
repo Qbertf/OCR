@@ -71,8 +71,8 @@ class arabicwiki:
 
                         information={'title':title,'content':content,'wordsdict_title':wordsdict_title,'wordsdict_content':wordsdict_content}
                         outpath = self.outputpath+'/'+path.split('/')[-1].replace('.txt','.pkl')
-                        with open(outpath,'wb') as f:
-                            pickle.dump(information,f)
+                        with open(outpath,'w') as f:
+                            f.write(str(information))
 
 
         #outpath = self.outputpath+'/UNIQUE_WORDS.pkl'
@@ -113,3 +113,4 @@ class arabicwiki:
         with open(outpath,'wb') as f:
 
             pickle.dump(tmpw,f)
+
