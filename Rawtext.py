@@ -50,7 +50,38 @@ class arabicwiki:
     
     def has_arabic(self,text: str) -> int:
         return 1 if re.search(r"[\u0600-\u06FF]", text) else 0
-    
+
+    def lightrun(self):
+        words_unq=set()
+        for path in glob.glob(self.forlderpath+'/*.txt'):
+            path = path.replace('\\','/')
+            sections_dict = self.parse_wiki_sections_from_file(path)          
+            for title, content in sections_dict.items():
+                information={}
+                if self.has_english(content)==0 and self.has_arabic(content)==1:
+                    if self.has_english(title)==0 and self.has_arabic(title)==1:
+
+                        wordsdict_title   = self.Ope.getwords(title)
+                        wordsdict_content = self.Ope.getwords(content)
+
+                        #words_unq = list(words_unq) + [wordsdict_content[w] for w in wordsdict_content.keys()]
+                        #words_unq = words_unq + [wordsdict_title[w] for w in wordsdict_title.keys()]
+                        #words_unq = set(words_unq)
+
+
+                        information={'title':title,'content':content,'wordsdict_title':wordsdict_title,'wordsdict_content':wordsdict_content}
+                        outpath = self.outputpath+'/'+path.split('/')[-1].replace('.txt','.pkl')
+                        with open(outpath,'wb') as f:
+                            pickle.dump(information,f)
+
+
+        #outpath = self.outputpath+'/UNIQUE_WORDS.pkl'
+        #tmpw={};p=0;
+        #for w in words_unq:
+        #    tmpw.update({p:w});p+=1;
+        #with open(outpath,'wb') as f:
+            #pickle.dump(tmpw,f)
+            
     def run(self):
         words_unq=set()
         for path in glob.glob(self.forlderpath+'/*.txt'):
@@ -80,4 +111,5 @@ class arabicwiki:
         for w in words_unq:
             tmpw.update({p:w});p+=1;
         with open(outpath,'wb') as f:
+
             pickle.dump(tmpw,f)
