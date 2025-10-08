@@ -93,7 +93,9 @@ class PAGESETUP:
                     
                     words_sequence.update({px:{'path':path,'word':word,'key':self.WORDS_UNQ_KEY[word],'w':w,'h':h,'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'mean_x':mean_x,'mean_y':mean_y}})
                     px+=1;
-
+                else:
+                    return None
+                    break
         return words_sequence
         #print(words_sequence)
 
@@ -194,3 +196,4 @@ class PAGESETUP:
         thickness = -1
         cv2.circle(image, center_point, radius, color, thickness)
         return image
+
