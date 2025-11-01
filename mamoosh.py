@@ -110,7 +110,8 @@ def put_text_on_segment(segment_content):
 
 def export(html_template,segmentname,outpath='tempwords',outdataset=""):
 
-  !mkdir -p $outpath
+  #!mkdir -p $outpath
+  os.system('mkdir -p '+outpath)
 
   with open("arabic_text_colored.html", "w", encoding="utf-8") as f:
       f.write(html_template)
@@ -128,7 +129,8 @@ def export(html_template,segmentname,outpath='tempwords',outdataset=""):
       img.save(outpath+"/"+f"{segmentname}_page_{index_out}.png", "PNG")
       #break
 
-  !rm -rf arabic_text_colored.html
+  #!rm -rf arabic_text_colored.html
+  os.system('rm -rf arabic_text_colored.html')
   #!rm -rf arabic_text_colored.pdf
 
 import os
