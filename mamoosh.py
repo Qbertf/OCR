@@ -265,7 +265,7 @@ def create_mask(image):
             px+=1;
 
   return a_xy
-
+'''
 def export_word(html_template,perfix,outpath='tempwords'):
 
   !mkdir -p $outpath
@@ -299,7 +299,7 @@ def export_word(html_template,perfix,outpath='tempwords'):
 
 
   return html_sample
-
+'''
 def get_info_mask(allwords):
 
   count_number=0;info_mask={}
