@@ -341,6 +341,28 @@ def get_info_mask(allwords):
   return info_mask,flag
 
 
+def replace_english_digits_with_arabic(text: str) -> str:
+    """
+    جایگزینی اعداد انگلیسی (0-9) با معادل عربی شرقی (٠-٩) در رشتهٔ ورودی
+    """
+    translation_map = {
+        '0': '٠',
+        '1': '١',
+        '2': '٢',
+        '3': '٣',
+        '4': '٤',
+        '5': '٥',
+        '6': '٦',
+        '7': '٧',
+        '8': '٨',
+        '9': '٩',
+    }
+
+    for eng, arb in translation_map.items():
+        text = text.replace(eng, arb)
+
+    return text
+  
 def export_dataset(segmentname,info_mask,allwords,outdataset="dataset",types="O"):
 
   px=0;outpage=[]
@@ -359,6 +381,7 @@ def export_dataset(segmentname,info_mask,allwords,outdataset="dataset",types="O"
       #cv2.rectangle(imagec, (x, y), (x + w, y + h), (0, 255, 0), 2)  # مستطیل سبز
 
       word = allwords[px]
+      word = replace_english_digits_with_arabic(word)
 
       page_data.update({wx:{'word':word,'location':{'x':x,'y':y,'w':w,'h':h}}})
 
