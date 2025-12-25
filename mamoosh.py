@@ -108,6 +108,25 @@ def put_text_on_segment(segment_content):
     text_putted += '</br></br> '
   return text_putted,allwords
 
+def save_binary_image_cv2(imagec, output_path):
+    """
+    تبدیل تصویر RGB به باینری (1-bit) و ذخیره با حداقل حجم
+    """
+    # 1. تبدیل به grayscale (اگر imagec سه کاناله باشد)
+    if len(imagec.shape) == 3:
+        gray = cv2.cvtColor(imagec, cv2.COLOR_BGR2GRAY)
+    else:
+        gray = imagec
+
+    _, binary = cv2.threshold(gray, 128, 255, cv2.THRESH_BINARY)
+    
+
+    binary_pil = Image.fromarray(binary)
+    binary_1bit = binary_pil.point(lambda x: 0 if x < 128 else 255, '1')
+    binary_1bit.save(output_path, optimize=True)
+    
+    return binary
+  
 def export(html_template,segmentname,outpath='tempwords',outdataset=""):
 
   #!mkdir -p $outpath
@@ -322,7 +341,7 @@ def get_info_mask(allwords):
   return info_mask,flag
 
 
-def export_dataset(segmentname,info_mask,allwords,outdataset="dataset"):
+def export_dataset(segmentname,info_mask,allwords,outdataset="dataset",types="O"):
 
   px=0;outpage=[]
   for key in info_mask.keys():
@@ -357,8 +376,12 @@ def export_dataset(segmentname,info_mask,allwords,outdataset="dataset"):
     #break
 
     output_path_image = key.replace('tempwords_mask',outdataset+"/images")
-    cv2.imwrite(output_path_image, imagec)
 
+    if types=='O':
+      cv2.imwrite(output_path_image, imagec)
+    else:
+      save_binary_image_cv2(imagec[:,:,0],output_path_image)
+    
     output_path_label = output_path_image.replace('images','labels').replace('.png','.json')
 
     with open(output_path_label, 'w', encoding='utf-8') as f:
