@@ -35,7 +35,7 @@ def template_first_sols(colored_arabic_text,font1,font2,font3):
       color: black;
       font-size: 18px;
       padding: 30px;
-      line-height: 1.8;
+      line-height: 2.2;
       text-align: justify;
       margin: 0;
       word-spacing: 2px;
