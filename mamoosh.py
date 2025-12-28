@@ -377,6 +377,7 @@ def export_dataset(segmentname,info_mask,allwords,outdataset="dataset",types="O"
     imagec = image.copy()
 
     page_data={};wx=0;
+    fulltext=''
     for coords in coords_list:
       x, y, w, h = coords
       imagec[y-5:y-5+h+10,x-5:x-5+w+10]=(255,255,255)
@@ -390,6 +391,7 @@ def export_dataset(segmentname,info_mask,allwords,outdataset="dataset",types="O"
 
       page_data.update({wx:{'word':word,'location':{'x':x,'y':y,'w':w,'h':h}}})
 
+      fulltext = fulltext + word + ' '
       wx+=1;
 
       if px==0:
@@ -415,6 +417,10 @@ def export_dataset(segmentname,info_mask,allwords,outdataset="dataset",types="O"
     with open(output_path_label, 'w', encoding='utf-8') as f:
         json.dump(page_data, f, ensure_ascii=False, indent=2)
 
+
+    with open(output_path_image.replace('images','texts').replace('.png','.txt'),'w', encoding='utf-8') as f:
+        f.write(fulltext.strip())
+      
     outpage.append(output_path_image)
 
   return outpage
