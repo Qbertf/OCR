@@ -176,7 +176,7 @@ def has_number(text):
 
     return False
 
-def export_word_line(html_template,perfix,segmentname,outpath='tempwords',outdataset=""):
+def export_word_line(html_template,perfix,segmentname,outpath='tempwords',outdataset="",sizebigger=False):
 
 
   words = html_template.split(" ")[perfix:]
@@ -202,7 +202,12 @@ def export_word_line(html_template,perfix,segmentname,outpath='tempwords',outdat
 
 
       else:
-        colored_word = wrd
+        
+        if sizebigger==True:
+            colored_word = f'<span style="font-size: 21px;">{wrd}</span>'
+        else:
+            colored_word = wrd
+          
         colored_word_mask = f'<u style="text-decoration: none; border-bottom: 4px solid red; padding-bottom: 4px;">{colored_word}</u>'
         #colored_word_mask = f'<span style="background-color: red; color: red;">{wrd}</span>'
 
